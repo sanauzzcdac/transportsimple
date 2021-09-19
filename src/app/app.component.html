@@ -1,0 +1,52 @@
+<h1>TransportSimple</h1>
+
+
+<table class="center">
+  <thead>
+    <tr (contextmenu)="onRightClick($event)">
+      <th *ngFor="let header of headers" >{{header}}</th>
+    </tr>
+
+    <tr *ngFor="let details of detailsArray;let i=index" (contextmenu)="onRightClick($event)">
+      <td (contextmenu)="indexvar=i">
+        <input type="text" Placeholder="select country" id="countryname" [(ngModel)]="details.country"
+          (change)="getCapitalName($event,i)" list="dynamicCountryList" required>
+        <datalist id="dynamicCountryList">
+          <option *ngFor="let crty of countries;" [value]="crty.name">{{crty.name}}</option>
+        </datalist>
+      </td>
+      <td (contextmenu)="indexvar=i">
+        <input type="text" Placeholder="select capital" id="capitalname" [(ngModel)]="details.capital"
+          list="dynamicCapitalList" required>
+        <datalist id="dynamicCapitalList">
+          <option [value]="capital">{{capital}}</option>
+        </datalist>
+      </td>
+      <td (contextmenu)="indexvar=i">
+        <span> <input type="text" placeholder="select state" id="statename" [(ngModel)]="details.state"
+            list="dynamicStateList">
+          <datalist id="dynamicStateList">
+            <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+          </datalist></span>
+      </td>
+
+
+    </tr>
+
+  </thead>
+</table>
+
+<button class="button" (click)="updateAllDetails()">Save All Details</button>
+
+<div *ngIf="showRightClickOptions" id="contextMenu" class="context-menu" [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y">
+
+
+  <ul>
+    <li><a (click)="addRowAbove()">Add Row Above</a></li>
+    <li><a (click)="addRowBelow()">Add Row Below</a></li>
+    <li><a (click)="removeRow()">Remove Row</a></li>
+    <li><a (click)="addColumnLeft()">Add Column Left</a></li>
+    <li><a (click)="addColumnRight()">Add Column Right</a></li>
+  </ul>
+</div>
